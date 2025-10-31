@@ -8,7 +8,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
 # Specify pixel means, standard deviations, and number of streetview images desired per tree
-# These values can be calculated following the calculate_pixel_means_stds.py code
+# These values can be calculated following the calculate_pixel_mean_std.py code
 streetview_mean = [0.39968493580818176, 0.423340380191803, 0.3796834349632263] # mean pixel values, RGB
 streetview_std = [0.2591862976551056, 0.25725704431533813, 0.27917301654815674] # standard deviation of pixel values, RGB
 streetview_max = 6 # maximum number of streetview images per tree
