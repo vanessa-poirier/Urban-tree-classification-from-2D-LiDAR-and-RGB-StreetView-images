@@ -10,3 +10,11 @@ All scripts which are part of the Deep Learning model construction are in Python
 
 **Tree classification model (all in Python):**
 
+Scripts should be processed in the following order:
+  1. calculate_pixel_mean_std.py
+  2. data_loader.py
+  3. model_define.py
+  4. training_pipeline.py
+  5. configuration.py
+  6. model_train.py
+  7. model_evaluate.py
