@@ -1,4 +1,16 @@
 # TRAINING AND VALIDATION PARAMETERS
+# Import necessary libraries
+import os
+import random
+from PIL import Image
+import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms
+from sklearn.utils.class_weight import compute_class_weight
+import numpy as np
+from collections import Counter
+import sys
 
 # === General parameters ===
 # This includes root directory path, batch size, device to be used, and mean + standard deviation of pixel values calculated in calculate_pixel_mean_std.py 
