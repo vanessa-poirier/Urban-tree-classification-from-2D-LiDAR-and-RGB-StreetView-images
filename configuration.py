@@ -1,7 +1,7 @@
 # TRAINING AND VALIDATION PARAMETERS
 
 # === General parameters ===
-      # This includes root directory path, batch size, device to be used, and mean + standard deviation of pixel values calculated in calculate_pixel_mean_std.py 
+# This includes root directory path, batch size, device to be used, and mean + standard deviation of pixel values calculated in calculate_pixel_mean_std.py 
 ## EXAMPLE USE:
 root_dir = "/media/vanessa/ZEFI_neuroa/PhD/data/point_clouds/2D-lidar_streetview_images/streetview_images_model" 
 batch_size = 16 # Adjust as needed according to your GPU memory
@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # === TRANSFORMATIONS ===
 # Here specified the transformations to be done on the images (streetview regular, streetview for data augmentation purposes, and 2D-LIDAR, respectively)
 # See data_loader.py for details on when/how these transformations are implemented
-
+## EXAMPLE USE:
 transform_streetview = transforms.Compose([
     transforms.Resize(image_size),
     transforms.RandomHorizontalFlip(),
@@ -48,9 +48,9 @@ print("Train classes:", Counter([lbl for _, _, lbl in train_list]))
 print("Val classes:", Counter([lbl for _, _, lbl in val_list]))
 print("Test classes:", Counter([lbl for _, _, lbl in test_list]))
 
-train_dataset = TreeDataset(train_list, class_to_idx, metrics, transform_streetview=transform_streetview, transform_augment=transform_augment, transform_lidar=transform_lidar)
-val_dataset = TreeDataset(val_list, class_to_idx, metrics, transform_streetview=transform_streetview, transform_augment=transform_augment, transform_lidar=transform_lidar)
-test_dataset = TreeDataset(test_list, class_to_idx, metrics, transform_streetview=transform_streetview, transform_augment=transform_augment, transform_lidar=transform_lidar)
+train_dataset = TreeDataset(train_list, class_to_idx, data_source="both", transform_streetview=transform_streetview, transform_augment=transform_augment, transform_lidar=transform_lidar)
+val_dataset = TreeDataset(val_list, class_to_idx, data_source="both", transform_streetview=transform_streetview, transform_augment=transform_augment, transform_lidar=transform_lidar)
+test_dataset = TreeDataset(test_list, class_to_idx, data_source="both", transform_streetview=transform_streetview, transform_augment=transform_augment, transform_lidar=transform_lidar)
 
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
@@ -66,6 +66,6 @@ class_weights = compute_class_weight(
 weights_tensor = torch.tensor(class_weights, dtype=torch.float).to(device)
 criterion = nn.CrossEntropyLoss(weight=weights_tensor)
 
-#model = ResNetTreeClassifier(num_classes=len(class_to_idx)).to(device)
 model = DualResNetClassifier(num_classes=len(class_to_idx)).to(device)
+#model = ResNetTreeClassifier(num_classes=len(class_to_idx)).to(device) # one would use this model if data source is singular (i.e. either 2D-LiDAR or Streetview only)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
