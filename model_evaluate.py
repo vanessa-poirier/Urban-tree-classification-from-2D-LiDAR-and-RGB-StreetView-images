@@ -10,12 +10,13 @@ import numpy as np
 import sys
 
 # Load model
-saved_model = os.path.join(current_working_directory, "ResNet_results", "ResNet34_streetview_images_augmented_earlystop12_09-18-2025.pth") # path to saved model
+## EXAMPLE USE
+saved_model = os.path.join("dir", "ResNet_results", "ResNet34_streetview_images_augmented_earlystop12_09-18-2025.pth") # path to saved model
 torch.load(saved_model, weights_only=False)
 
 
 # Define function to evaluate model
-def evaluate_model_metrics(model, type="single", test_loader, class_names, device):
+def evaluate_model_metrics(model, test_loader, class_names, device, type="dual"):
     """
         Args:
             model: trained pytorch model to be evaluated
