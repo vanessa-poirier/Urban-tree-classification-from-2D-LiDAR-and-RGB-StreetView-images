@@ -615,8 +615,8 @@ print("calculating pixel means and stds")
 root_dir = "E:/PhD/data/point_clouds/lidar_streetview_images/streetview_images_model" 
 mean_lidar, std_lidar, max_images_per_tree_lidar, mean_streetview, std_streetview, max_images_per_tree_street = compute_mean_std(root_dir, resize=image_size, data_source="both", max_images=None)
 
-print(f"Mean LiDAR: {mean_lidar}, Mean Streetview: {mean_steetview}")
-print(f"Std LiDAR:  {std_lidar}, Std Streetview: {std_steetview}")
+print(f"Mean LiDAR: {mean_lidar}, Mean Streetview: {mean_streetview}")
+print(f"Std LiDAR:  {std_lidar}, Std Streetview: {std_streetview}")
 print(f"Max LiDAR images per tree:  {max_images_per_tree_lidar}, Max Streetview images per tree:  {max_images_per_tree_street}")
 
 
