@@ -7,15 +7,6 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
-# Specify pixel means, standard deviations, and number of streetview images desired per tree
-# These values should be calculated following the calculate_pixel_mean_std.py code
-streetview_mean = [0.39968493580818176, 0.423340380191803, 0.3796834349632263] # mean pixel values, RGB
-streetview_std = [0.2591862976551056, 0.25725704431533813, 0.27917301654815674] # standard deviation of pixel values, RGB
-streetview_max = 6 # maximum number of streetview images per tree
-
-lidar_mean = [0.8706936836242676, 0.8945264220237732, 0.8733906149864197] # mean pixel values, RGB
-lidar_std = [0.29993873834609985, 0.18825730681419373, 0.29120898246765137] # standard deviation of pixel values, RGB
-
 
 # Define function to get image paths
 def get_image_paths(root_dir, data_source): # Gets all streetview and lidar image paths and their corresponding class names
