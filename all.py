@@ -653,7 +653,7 @@ transform_lidar = transforms.Compose([
     transforms.Normalize(mean_lidar, std_lidar)
 ])
 
-image_paths, class_to_idx = get_image_paths(root_dir, data_source) # get's the season specific folder and lidar folder that the images are in for each tree
+image_paths, class_to_idx = get_image_paths(root_dir, data_source="both") # get's the season specific folder and lidar folder that the images are in for each tree
 train_list, val_list, test_list = split_dataset(image_paths)
 
 print("Train classes:", Counter([lbl for _, _, lbl in train_list]))
