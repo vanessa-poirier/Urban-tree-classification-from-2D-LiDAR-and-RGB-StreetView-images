@@ -34,15 +34,13 @@ class DualResNetClassifier(nn.Module):
     def __init__(self, num_classes):
         super().__init__()
         self.classifier = nn.Linear(512*2, num_classes)
- 
+
         # --- Branch 1 ---
         base1 = resnet34(weights="DEFAULT")
-        base1.conv1 = nn.Conv2d(6, 64, kernel_size=7, stride=2, padding=3, bias=False) # change the first Conv layer so it accepts 6 channels
         self.feat1 = nn.Sequential(*list(base1.children())[:-1])  # -> (B,512,1,1)
  
         # --- Branch 2 ---
         base2 = resnet34(weights="DEFAULT")
-        base2.conv1 = nn.Conv2d(6, 64, kernel_size=7, stride=2, padding=3, bias=False) 
         self.feat2 = nn.Sequential(*list(base2.children())[:-1])
  
     @staticmethod # this is a function that is not beholden to the class object
