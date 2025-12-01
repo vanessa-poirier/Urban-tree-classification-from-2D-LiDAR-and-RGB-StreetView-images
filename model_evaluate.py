@@ -1,5 +1,6 @@
 import os
 import random
+import pandas as pd
 from PIL import Image
 import torch
 import torch.nn as nn
@@ -91,6 +92,7 @@ precisions, recalls, fscores, supports, per_class_accs, accuracies, kappas = zip
 precisions_mat = np.stack(precisions) # STACK METRIC VECTORS INTO A MATRIX
 recalls_mat = np.stack(recalls)
 fscores_mat = np.stack(fscores)
+per_class_accs_mat = np.stack(per_class_accs)
 
 precision_sum = []
 recall_sum = []
@@ -142,11 +144,13 @@ data_sum = { # data with means and sds
 df_summary = pd.DataFrame(data_sum)
 file_name = 'E:/PhD/ResNet_results/model_performance_100x_resnet34_streetview_2025-11-18.csv'
 df_summary.to_csv(file_name)
-print(f"Model performance metrics saved to {file_name}")
+print(f"Model performance metrics summaries saved to {file_name}")
 
 df_fscore = pd.DataFrame(fscores_mat, columns=f"f_score_{class_name}")
 df_precision = pd.DataFrame(precisions_mat, columns=f"precision_{class_name}")
 df_recall = pd.DataFrame(recalls_mat, columns=f"recall_{class_name}")
-df_all = pd.concat([df_precision, df_recall, df_fscore], axis=1) # cbind the dataframes
+df_acc = pd.DataFrame(per_class_accs_mat, columns=f"recall_{class_name}")
+df_all = pd.concat([df_precision, df_recall, df_fscore, df_acc], axis=1) # cbind the dataframes
 file_name2 = 'E:/PhD/ResNet_results/model_performance_fscores_100x_resnet34_streetview_2025-11-18.csv'
-df2.to_csv(file_name2)
+df_all.to_csv(file_name2)
+print(f"Model performance metrics all saved to {file_name2}")
