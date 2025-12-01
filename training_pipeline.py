@@ -74,7 +74,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, t
                 loss.backward()
                 optimizer.step()
 
-                running_loss += loss.item() * inputs.size(0)
+                running_loss += loss.item() * inputs1.size(0)
                 preds = outputs.argmax(1)
                 correct += (preds == labels).sum().item()
                 total += labels.size(0)
