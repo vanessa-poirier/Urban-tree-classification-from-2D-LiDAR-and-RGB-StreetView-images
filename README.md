@@ -5,10 +5,11 @@ The context for this repository and the methods to follow are detailed in **Poir
 
 All scripts which are part of the Deep Learning model construction are in Python (version 3.10.13). Some pre-processing of the LiDAR data is required (to transform the 3D point clouds into 2D RGB images) and can be completed using the 3D_to_2D_LIDAR_transformation.R script. Original authors used R version 4.4.0.
 
+
 **Data pre-processing (all in R):**
 LiDAR_transformation
-  arguments_glost_2D.R # create arguments to be fed to GLOST for parallel processing of the pt_to_2D_image_rgb.R script
-  pt_to_2D_image_rgb.R # transform tree point cloud (laz file) into 10 2D images, each showcasing a different angle of view
+  - arguments_glost_2D.R # create arguments to be fed to GLOST for parallel processing of the pt_to_2D_image_rgb.R script
+  - pt_to_2D_image_rgb.R # transform tree point cloud (laz file) into 10 2D images, each showcasing a different angle of view
 
 data_assembly
   extract_streetview_images_by_date.R # sorts streetview images by their date of capture (by season and LiDAR scan dates) 
