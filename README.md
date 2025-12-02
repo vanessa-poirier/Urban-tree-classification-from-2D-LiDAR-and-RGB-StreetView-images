@@ -7,11 +7,11 @@ All scripts which are part of the Deep Learning model construction are in Python
 
 
 **Data pre-processing (all in R):**
-LiDAR_transformation
+##LiDAR_transformation
   - arguments_glost_2D.R # create arguments to be fed to GLOST for parallel processing of the pt_to_2D_image_rgb.R script
   - pt_to_2D_image_rgb.R # transform tree point cloud (laz file) into 10 2D images, each showcasing a different angle of view
 
-data_assembly
+##data_assembly
   extract_streetview_images_by_date.R # sorts streetview images by their date of capture (by season and LiDAR scan dates) 
   move_lidar_images_to_streetview_folder.R # moves 2D-LiDAR images into the same folders as the Streetview images
 
