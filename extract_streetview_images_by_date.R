@@ -50,7 +50,7 @@ summer <- "202[0-9]06|202[0-9]07|202[0-9]08"
 automn <- "202[0-9]09|202[0-9]10|202[0-9]11"
 winter <- "202[0-9]01|202[0-9]02|202[0-9]03|202[0-9]04|202[0-9]05|202[0-9]12"
 
-
+main_dir <- "/media/vanessa/ZEFI_neuroa/PhD/streetview_images_model" # specify destination directory
 
 extract_files <- function(subfolder) {
     ## DATA PREP
@@ -151,7 +151,6 @@ extract_files <- function(subfolder) {
     }
 
 
-
     ## STEP 4 : extract photos that match winter time
     winter_photos <- NULL
     try(winter_photos <- grouped_files[[grep(winter, names(grouped_files))]])
@@ -180,38 +179,37 @@ extract_files <- function(subfolder) {
     }
 
 
-    #### Copy photo files that I want to use for the model into another folder ####
+    ## Copy photo files into another folder ##
 
     try(if (is.na(scan_photos)[1]==TRUE) {
         print("no scan photos")
     } else {
         files <- lapply(scan_photos, basename)
-        copy_path_scan <- lapply(files, function(x) paste("/media/vanessa/ZEFI_neuroa/PhD/streetview_images_model", scan_genus, uuid1, "scan_date", x, sep="/"))
+        copy_path_scan <- lapply(files, function(x) paste(main_dir, scan_genus, uuid1, "scan_date", x, sep="/"))
     })
 
     try(if (is.na(summer_photos)[1]==TRUE) {
         print("no summer photos")
     } else {
         files <- lapply(summer_photos, basename)
-        copy_path_summer <- lapply(files, function(x) paste("/media/vanessa/ZEFI_neuroa/PhD/streetview_images_model", scan_genus, uuid1, "summer", x, sep="/"))
+        copy_path_summer <- lapply(files, function(x) paste(main_dir, scan_genus, uuid1, "summer", x, sep="/"))
     })
 
     try(if (is.na(automn_photos)[1]==TRUE) {
         print("no automn photos")
     } else {
         files <- lapply(automn_photos, basename)
-        copy_path_automn <- lapply(files, function(x) paste("/media/vanessa/ZEFI_neuroa/PhD/streetview_images_model", scan_genus, uuid1, "automn", x, sep="/"))
+        copy_path_automn <- lapply(files, function(x) paste(main_dir, scan_genus, uuid1, "automn", x, sep="/"))
     })
 
     try(if (is.na(winter_photos)[1]==TRUE) {
         print("no winter photos")
     } else {
         files <- lapply(winter_photos, basename)
-        copy_path_winter <- lapply(files, function(x) paste("/media/vanessa/ZEFI_neuroa/PhD/streetview_images_model", scan_genus, uuid1, "winter", x, sep="/"))
+        copy_path_winter <- lapply(files, function(x) paste(main_dir, scan_genus, uuid1, "winter", x, sep="/"))
     })
 
     # create directories to put files if they don't already exist
-    main_dir <- "/media/vanessa/ZEFI_neuroa/PhD/streetview_images_model"
     genus_dir <- scan_genus
     sub_dir1 <- uuid1
     try(sub_dir_scan <- as.vector(split_path(copy_path_scan[[1]])[2]))
@@ -257,9 +255,16 @@ extract_files <- function(subfolder) {
     return(lines)
 }
 
-## get photo paths
-subfolder_paths <- list.files("/media/vanessa/ZEFI_neuroa/PhD/streetview_images_non-extended", include.dirs=TRUE, full.names=TRUE)
+                                       
+#### Create txt file containing the copy files command ####
+dir <- "/media/vanessa/ZEFI_neuroa/PhD/streetview_images_non-extended" # directory where the Streetview images are currently stored
+subfolder_paths <- list.files(dir, include.dirs=TRUE, full.names=TRUE)
 head(subfolder_paths)
 
 all_lines <- lapply(subfolder_paths, extract_files)
 head(unlist(all_lines))
+
+# create arguments file
+arguments <- file(paste0(here("arguments-copy-images.txt")) # name and path of arguments file
+cat(paste(unlist(all_lines), collapse = "\n"), "\n", file=arguments)
+close(arguments)
