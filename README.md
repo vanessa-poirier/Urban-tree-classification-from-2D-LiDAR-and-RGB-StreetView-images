@@ -1,9 +1,9 @@
 # Urban-tree-classification-from-2D-LiDAR-and-RGB-StreetView-images
-This repository hosts all the code associated with building three ResNet34-based Deep Learning models which aim to classify 15 urban tree genera from LiDAR and RGB StreetView images.  
+This repository hosts all the code associated with building three ResNet34-based Deep Learning models which aim to classify 15 urban tree taxa from LiDAR and RGB StreetView images.  
 
-The context for this repository and the methods to follow are detailed in **Poirier, V., Kneeshaw, D., Herrault, P.A., Wenger, R., Charbonneau, Z., Paquette, A. IN PREP. Urban tree genera classification using mobile terrestrial LiDAR and Streetview images**  
+The context for this repository and the methods to follow are detailed in **Poirier, V., Kneeshaw, D., Herrault, P.A., Wenger, R., Lecigne, B., Charbonneau, Z., Paquette, A. IN PREP. Urban tree genera classification using mobile terrestrial LiDAR and Streetview images**  
 
-All scripts which are part of the Deep Learning model construction are in Python (version 3.10.13). Some pre-processing of the LiDAR data is required (to transform the 3D point clouds into 2D RGB images) and can be completed using the 3D_to_2D_LIDAR_transformation.R script. Original authors used R version 4.4.0.
+All scripts which are part of the Deep Learning model construction are in Python (version 3.10.13). Some pre-processing of the LiDAR data is required (to transform the 3D point clouds into 2D RGB images) and can be completed using the LiDAR Transformation scripts. Authors used R version 4.4.0 for these transformations. Data assembly scripts were used to (1) match trees to their Streetview images and sort them by date (i.e. season), and (2) place LiDAR images and Streetview images into the same data folder.  
 
 
 **Data pre-processing (all in R):**  
